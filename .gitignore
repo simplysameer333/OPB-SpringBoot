@@ -5,3 +5,7 @@ classes
 .eclipse
 classes
 out
+bin
+.classpath
+.settings
+.project
