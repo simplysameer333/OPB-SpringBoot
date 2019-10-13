@@ -4,6 +4,7 @@ import com.banking.opb.Utilities.BasicUtilities;
 import com.banking.opb.domain.UserLoginInformation;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,6 +26,15 @@ public class LoginServiceImpl implements  LoginService {
     }
 
     public UserLoginInformation login(UserLoginInformation userInfo) {
-        return userCache.get(userInfo.getUsername());
+        UserLoginInformation currentUser = userCache.get(userInfo.getUsername());
+        if (currentUser != null && currentUser.getPassword().equals(userInfo.getPassword())) {
+            currentUser.setPassword(new char[]{});
+            return currentUser;
+        }
+        return null;
+    }
+
+    public Collection<UserLoginInformation> getAllSingedUpUsers() {
+        return userCache.values();
     }
 }

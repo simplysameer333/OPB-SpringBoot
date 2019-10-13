@@ -8,6 +8,7 @@ buildscript {
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+
     }
 }
 
@@ -44,6 +45,8 @@ dependencyManagement {
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
     compile('org.joda:joda-money:1.0.1')
+    //compile('org.json:json:20190722')
+
     compileOnly('org.projectlombok:lombok')
     apt('org.projectlombok:lombok')
 

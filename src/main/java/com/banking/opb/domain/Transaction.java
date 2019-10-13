@@ -1,9 +1,9 @@
 package com.banking.opb.domain;
 
+import com.banking.opb.Application;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.banking.opb.Application;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.joda.money.Money;

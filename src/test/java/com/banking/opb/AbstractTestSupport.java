@@ -35,13 +35,6 @@ public abstract class AbstractTestSupport {
     @Value("${obp.password}")
     private String password;
 
-    @Value("${obp.consumerKey}")
-    private String consumerKey;
-
-    @Autowired private DirectAuthenticationClient authClient;
-    @Autowired private ObpApiClient obpApiClient;
-    @Autowired private ObpBankMetaApiClient obpBankMetaApiClient;
-
     @Before
     public void init() {
         String token = authClient.login(username, password, consumerKey);
@@ -50,6 +43,18 @@ public abstract class AbstractTestSupport {
         //a pre-requisite for tests is for the user to have an account
         createAccountIfNoneExists();
     }
+
+    @Value("${obp.consumerKey}")
+    private String consumerKey;
+
+    @Autowired
+    private DirectAuthenticationClient authClient;
+    @Autowired
+    private ObpApiClient obpApiClient;
+    @Autowired
+    private ObpBankMetaApiClient obpBankMetaApiClient;
+
+
 
     private void createAccountIfNoneExists() {
         User currentUser = obpApiClient.getCurrentUser();
