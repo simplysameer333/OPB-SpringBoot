@@ -1,7 +1,8 @@
-package com.banking.opb.service;
+package com.banking.opb.service.impl;
 
 import com.banking.opb.Utilities.BasicUtilities;
 import com.banking.opb.domain.UserLoginInformation;
+import com.banking.opb.service.LoginService;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -9,7 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Service
-public class LoginServiceImpl implements  LoginService {
+public class LoginServiceImpl implements LoginService {
     private static Map<String, UserLoginInformation> userCache = new HashMap<>();
 
     public String singedUpUser(UserLoginInformation userInfo) {

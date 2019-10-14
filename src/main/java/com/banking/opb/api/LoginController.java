@@ -23,7 +23,7 @@ public class LoginController {
     public Map signUp(@RequestBody UserLoginInformation userInfo) {
         String response = "Failed";
         String username = loginServiceImpl.singedUpUser(userInfo);
-        if (username != null)
+        if (username != null && !"MandatoryMissing".equals(username) && !"UserExists".equals(username))
             response = "Success";
         return Collections.singletonMap("response", response);
     }
