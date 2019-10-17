@@ -58,6 +58,7 @@ dependencies {
     apt('org.projectlombok:lombok')
 
     implementation('org.springframework.cloud:spring-cloud-starter-openfeign')
+    implementation('com.twilio.sdk:twilio:7.42.0')
     compile('org.springframework.boot:spring-boot-starter-security')
     compile('org.joda:joda-money:1.0.1')
     compile('org.projectlombok:lombok')

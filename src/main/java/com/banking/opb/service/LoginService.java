@@ -7,6 +7,5 @@ import java.util.Collection;
 public interface LoginService {
     String singedUpUser(UserLoginInformation userInfo);
     UserLoginInformation login(UserLoginInformation userInfo) ;
-
     Collection<UserLoginInformation> getAllSingedUpUsers();
 }

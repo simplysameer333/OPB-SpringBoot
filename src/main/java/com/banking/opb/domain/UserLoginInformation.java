@@ -7,7 +7,6 @@ import lombok.Data;
 public class UserLoginInformation {
     @JsonProperty("user_id")
     private String userId;
-
     private String username;
     private char[] password;
     private String email;

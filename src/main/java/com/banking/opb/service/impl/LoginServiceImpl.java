@@ -28,8 +28,8 @@ public class LoginServiceImpl implements LoginService {
 
     public UserLoginInformation login(UserLoginInformation userInfo) {
         UserLoginInformation currentUser = userCache.get(userInfo.getUsername());
-        if (currentUser != null && currentUser.getPassword().equals(userInfo.getPassword())) {
-            currentUser.setPassword(new char[]{});
+        if (currentUser != null
+                && String.copyValueOf(currentUser.getPassword()).equals(String.copyValueOf(userInfo.getPassword()))) {
             return currentUser;
         }
         return null;

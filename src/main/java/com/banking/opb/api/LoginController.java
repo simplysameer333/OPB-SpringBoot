@@ -3,6 +3,8 @@ package com.banking.opb.api;
 import com.banking.opb.domain.UserLoginInformation;
 import com.banking.opb.service.LoginService;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,12 +17,13 @@ import java.util.Map;
 @Slf4j
 @CrossOrigin
 public class LoginController {
+    private final Logger LOGGER = LoggerFactory.getLogger(this.getClass().getName());
 
     @Autowired
     private LoginService loginServiceImpl;
 
     @PostMapping(value = "/api/signUpUser", consumes = "application/json", produces = "application/json")
-    public Map signUp(@RequestBody UserLoginInformation userInfo) {
+    public Map<String, String> signUp(@RequestBody UserLoginInformation userInfo) {
         String response = "Failed";
         String username = loginServiceImpl.singedUpUser(userInfo);
         if (username != null && !"MandatoryMissing".equals(username) && !"UserExists".equals(username))
@@ -29,11 +32,12 @@ public class LoginController {
     }
 
     @PostMapping(value = "/api/loginUser", consumes = "application/json", produces = "application/json")
-    public UserLoginInformation login(@RequestBody UserLoginInformation userInfo, HttpServletRequest request) {
+    public Map<String, String> login(@RequestBody UserLoginInformation userInfo, HttpServletRequest request) {
         userInfo = loginServiceImpl.login(userInfo);
+        LOGGER.info(userInfo.getUserId());
         if (userInfo != null)
             request.getSession().setAttribute("activeuser", userInfo);
-        return userInfo;
+        return Collections.singletonMap("response", userInfo.getUserId());
     }
 
     @GetMapping(value = "/api/AllUsersLogin")
