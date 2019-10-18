@@ -1,4 +1,4 @@
 twilio:
-  account_sid: AC95ebf44b924fbf920e0f325eaacebd11
-  auth_token: 04e4e5f9914cbe7395956f402cc3fc58
+  account_sid:
+  auth_token:
   trail_number: +13344012499
