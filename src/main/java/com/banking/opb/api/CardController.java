@@ -21,7 +21,7 @@ public class CardController {
     private CardService cardServiceImpl;
 
     @PostMapping(value = "/api/card/addCard", consumes = "application/json", produces = "application/json")
-    public Map<String, String> sigcnUp(@RequestBody Card cardInfo) {
+    public Map<String, String> signUp(@RequestBody Card cardInfo) {
         String response = "Failed";
         String username = cardServiceImpl.addCard(cardInfo);
         if (username != null && !"MandatoryMissing".equals(username) && !"CardExists".equals(username))
@@ -31,7 +31,7 @@ public class CardController {
 
     @PostMapping(value = "/api/card/setdefault", consumes = "application/json", produces = "application/json")
     public Map<String, Boolean> setDafault(@RequestParam String cardId) {
-        boolean response = false;
+        boolean response;
         response = cardServiceImpl.setDefault(cardId);
         return Collections.singletonMap("response", response);
     }
@@ -62,12 +62,10 @@ public class CardController {
     public ObpApiClient.Transactions getAllTransactionCard(@RequestParam String cardId) {
         Card cardInfor = cardServiceImpl.getCardInfo(cardId);
         RestTemplate restTemplate = new RestTemplate();
-        ObpApiClient.Transactions result =
-                restTemplate.getForObject(
-                        "${obp.api.versionedUrl}/banks/{bankId}/accounts/{accountId}/owner/transactions",
-                        ObpApiClient.Transactions.class, cardInfor.getBranchId(), cardInfor.getAccountId()
-                );
-        return result;
+        return restTemplate.getForObject(
+                "${obp.api.versionedUrl}/banks/{bankId}/accounts/{accountId}/owner/transactions",
+                ObpApiClient.Transactions.class, cardInfor.getBranchId(), cardInfor.getAccountId()
+        );
     }
 
 

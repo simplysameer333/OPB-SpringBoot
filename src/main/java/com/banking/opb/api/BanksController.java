@@ -4,6 +4,7 @@ import com.banking.opb.clientapi.ObpBankMetaApiClient;
 import com.banking.opb.domain.ATM;
 import com.banking.opb.domain.Bank;
 import com.banking.opb.domain.Branch;
+import com.banking.opb.exception.ApiRequestException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @RestController
@@ -25,9 +27,13 @@ public class BanksController {
 
     @GetMapping("/api/banks")
     public List<Bank> allBanks() {
-        List<Bank> allBanks = obpBankMetaApiClient.getBanks().getBanks();
-        log.info("Fetching branches for " + allBanks);
-
+        List<Bank> allBanks;
+        try {
+            allBanks = obpBankMetaApiClient.getBanks().getBanks();
+            log.info("Fetching branches for " + allBanks);
+        } catch (Exception e) {
+            throw new ApiRequestException(e.getMessage(), e);
+        }
         return allBanks;
     }
 
@@ -45,7 +51,7 @@ public class BanksController {
                 //TODO: fix API not to return 400 if no branches are found for a bank
                 return null;
             }
-        }).filter(bank -> bank != null)   //exclude empty branch lists
+        }).filter(Objects::nonNull)   //exclude empty branch lists
                 .collect(Collectors.toList());
     }
 
