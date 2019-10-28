@@ -1,9 +1,10 @@
 package com.banking.opb.service.impl;
 
 import com.banking.opb.Utilities.BasicUtilities;
-import com.banking.opb.domain.Card;
-import com.banking.opb.domain.SmsRequest;
-import com.banking.opb.service.CardService;
+import com.banking.opb.domain.custom.Card;
+import com.banking.opb.domain.custom.SmsRequest;
+import com.banking.opb.service.ICardService;
+import com.banking.opb.service.TwilioSmsSender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,9 +12,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Service
-public class CardServiceImpl implements CardService {
+public class CardServiceImpl implements ICardService {
 
     private static Map<String, Card> cardCache = new HashMap<>();
+
     @Autowired
     private TwilioSmsSender twilioSmsSender;
 
@@ -54,6 +56,4 @@ public class CardServiceImpl implements CardService {
     public boolean validateCode(String card_id, int passCode) {
         return passCode == cardCache.get(card_id.trim()).getLastCode();
     }
-
-
 }

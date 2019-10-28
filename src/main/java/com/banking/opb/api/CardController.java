@@ -2,8 +2,8 @@ package com.banking.opb.api;
 
 import com.banking.opb.Utilities.BasicUtilities;
 import com.banking.opb.clientapi.ObpApiClient;
-import com.banking.opb.domain.Card;
-import com.banking.opb.service.CardService;
+import com.banking.opb.domain.custom.Card;
+import com.banking.opb.service.ICardService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -18,12 +18,12 @@ import java.util.Map;
 public class CardController {
 
     @Autowired
-    private CardService cardServiceImpl;
+    private ICardService ICardServiceImpl;
 
     @PostMapping(value = "/api/card/addCard", consumes = "application/json", produces = "application/json")
     public Map<String, String> signUp(@RequestBody Card cardInfo) {
         String response = "Failed";
-        String username = cardServiceImpl.addCard(cardInfo);
+        String username = ICardServiceImpl.addCard(cardInfo);
         if (username != null && !"MandatoryMissing".equals(username) && !"CardExists".equals(username))
             response = "Success";
         return Collections.singletonMap("response", response);
@@ -32,7 +32,7 @@ public class CardController {
     @PostMapping(value = "/api/card/setdefault", consumes = "application/json", produces = "application/json")
     public Map<String, Boolean> setDafault(@RequestParam String cardId) {
         boolean response;
-        response = cardServiceImpl.setDefault(cardId);
+        response = ICardServiceImpl.setDefault(cardId);
         return Collections.singletonMap("response", response);
     }
 
@@ -41,7 +41,7 @@ public class CardController {
         if (BasicUtilities.isEmptyOrNullString(cardId))
             return Collections.singletonMap("response", "Authentication Failed, User Id not provided");
         else {
-            cardServiceImpl.generateCode(cardId);
+            ICardServiceImpl.generateCode(cardId);
             return Collections.singletonMap("response", "Code send");
         }
     }
@@ -51,7 +51,7 @@ public class CardController {
         if (BasicUtilities.isEmptyOrNullString(cardInfo.getCardNumber()))
             return Collections.singletonMap("response", "Authentication Failed, User Id not provided");
         else {
-            boolean response = cardServiceImpl.validateCode(cardInfo.getCardNumber(), cardInfo.getLastCode());
+            boolean response = ICardServiceImpl.validateCode(cardInfo.getCardNumber(), cardInfo.getLastCode());
             if (response)
                 return Collections.singletonMap("response", "Authentication Successful");
             return Collections.singletonMap("response", "Authentication Failed");
@@ -60,7 +60,7 @@ public class CardController {
 
     @GetMapping(value = "/api/card/transactions/{cardId}")
     public ObpApiClient.Transactions getAllTransactionCard(@RequestParam String cardId) {
-        Card cardInfor = cardServiceImpl.getCardInfo(cardId);
+        Card cardInfor = ICardServiceImpl.getCardInfo(cardId);
         RestTemplate restTemplate = new RestTemplate();
         return restTemplate.getForObject(
                 "${obp.api.versionedUrl}/banks/{bankId}/accounts/{accountId}/owner/transactions",

@@ -1,7 +1,6 @@
-package com.banking.opb.service.impl;
+package com.banking.opb.service;
 
-import com.banking.opb.domain.SmsRequest;
-import com.banking.opb.service.ISmsSender;
+import com.banking.opb.domain.custom.SmsRequest;
 import com.banking.opb.twilio.TwilioConfigration;
 import com.twilio.rest.api.v2010.account.Message;
 import com.twilio.type.PhoneNumber;

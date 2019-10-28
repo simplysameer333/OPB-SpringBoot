@@ -1,8 +1,14 @@
 package com.banking.opb.service.impl;
 
 import com.banking.opb.Utilities.BasicUtilities;
-import com.banking.opb.domain.UserLoginInformation;
-import com.banking.opb.service.LoginService;
+import com.banking.opb.Utilities.ConfigProperties;
+import com.banking.opb.clientapi.DirectAuthenticationClient;
+import com.banking.opb.domain.custom.UserLoginInformation;
+import com.banking.opb.service.ILoginService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.context.SecurityContextImpl;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -10,8 +16,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Service
-public class LoginServiceImpl implements LoginService {
+public class LoginServiceImpl implements ILoginService {
     private static Map<String, UserLoginInformation> userCache = new HashMap<>();
+
+    @Autowired
+    private ConfigProperties properties;
+
+    @Autowired
+    private DirectAuthenticationClient directAuthenticationClient;
 
     public String singedUpUser(UserLoginInformation userInfo) {
         if (BasicUtilities.isEmptyOrNullString(userInfo.getEmail()) || BasicUtilities.isEmptyOrNullString(userInfo.getUsername())
@@ -30,6 +42,12 @@ public class LoginServiceImpl implements LoginService {
         UserLoginInformation currentUser = userCache.get(userInfo.getUsername());
         if (currentUser != null
                 && String.copyValueOf(currentUser.getPassword()).equals(String.copyValueOf(userInfo.getPassword()))) {
+            String authToken = directAuthenticationClient.login(properties.getConfigValue("obp.username"),
+                    properties.getConfigValue("obp.password"),
+                    properties.getConfigValue("obp.consumerKey"));
+            currentUser.setAuthToken(authToken);
+            SecurityContextHolder.setContext(new SecurityContextImpl(
+                    new UsernamePasswordAuthenticationToken(userInfo.getUsername(), authToken)));
             return currentUser;
         }
         return null;

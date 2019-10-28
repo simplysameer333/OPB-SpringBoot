@@ -1,6 +1,7 @@
 package com.banking.opb.clientapi;
 
 import com.banking.opb.domain.*;
+import com.banking.opb.domain.custom.Customer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -77,6 +78,9 @@ public interface ObpApiClient {
     void deleteLocation(@PathVariable("bankId") String bankId, @PathVariable("accountId") String accountId,
                    @PathVariable("transactionId") String transactionId);
     //end::tx-metadata[]
+
+    @RequestMapping(method = RequestMethod.POST, value = "banks/{bankId}/customers")
+    public Customer createCustomer(@PathVariable("bankId") String bankId, @RequestBody Customer customer);
 
     @Data
     class Transactions {

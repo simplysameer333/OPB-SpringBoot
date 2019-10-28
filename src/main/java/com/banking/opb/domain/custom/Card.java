@@ -1,4 +1,4 @@
-package com.banking.opb.domain;
+package com.banking.opb.domain.custom;
 
 import lombok.Data;
 

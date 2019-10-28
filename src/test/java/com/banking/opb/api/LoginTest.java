@@ -1,7 +1,7 @@
 package com.banking.opb.api;
 
-import com.banking.opb.domain.UserLoginInformation;
-import com.banking.opb.service.LoginService;
+import com.banking.opb.domain.custom.UserLoginInformation;
+import com.banking.opb.service.ILoginService;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,7 +16,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class LoginTest {
 
     @Autowired
-    private LoginService loginServiceImpl;
+    private ILoginService ILoginServiceImpl;
     private UserLoginInformation testUser = null;
 
     @Before
@@ -30,14 +30,14 @@ public class LoginTest {
     @Test
     @Order(1)
     public void signUpUserFirstTest() {
-        String name = loginServiceImpl.singedUpUser(testUser);
+        String name = ILoginServiceImpl.singedUpUser(testUser);
         Assert.assertTrue(!"MandatoryMissing".equals(name) && !"UserExists".equals(name));
     }
 
     @Test
     @Order(2)
     public void signUpUserSecondTest() {
-        String name = loginServiceImpl.singedUpUser(testUser);
+        String name = ILoginServiceImpl.singedUpUser(testUser);
         System.out.println(name);
         Assert.assertTrue("UserExists".equals(name));
     }

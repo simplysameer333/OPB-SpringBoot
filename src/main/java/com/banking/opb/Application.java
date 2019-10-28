@@ -24,7 +24,6 @@ public class Application extends SpringBootServletInitializer {
         return builder.sources(Application.class);
     }
 
-
     //http://stackoverflow.com/questions/31724994/spring-data-rest-and-cors/31748398#31748398
     //This method for enabling CORS is compatible to Spring Data REST and Spring MVC.
     @Bean

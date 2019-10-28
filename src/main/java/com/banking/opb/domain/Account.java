@@ -11,7 +11,7 @@ public class Account {
     private String id;
 
     @JsonProperty("user_id")
-    private String userId;
+    private String userId = "";
 
     private String label;
 
