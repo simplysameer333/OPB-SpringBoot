@@ -1,6 +1,7 @@
 package com.banking.opb.domain.custom;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import lombok.Data;
 
 @Data

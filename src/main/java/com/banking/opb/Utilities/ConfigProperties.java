@@ -1,4 +1,4 @@
-package com.banking.opb.Utilities;
+package com.banking.opb.utilities;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;

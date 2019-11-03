@@ -1,0 +1,3 @@
+WALLET_LOCATION = (SOURCE = (METHOD = file) (METHOD_DATA = (DIRECTORY="?/network/admin")))
+SSL_SERVER_DN_MATCH=yes
+tcp.validnode_checking=no

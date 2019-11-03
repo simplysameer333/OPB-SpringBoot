@@ -1,8 +1,8 @@
 package com.banking.opb.service;
 
-import com.banking.opb.domain.custom.UserLoginInformation;
-
 import java.util.Collection;
+
+import com.banking.opb.domain.custom.UserLoginInformation;
 
 public interface ILoginService {
     String singedUpUser(UserLoginInformation userInfo);

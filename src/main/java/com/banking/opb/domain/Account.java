@@ -1,10 +1,12 @@
 package com.banking.opb.domain;
 
+import org.joda.money.Money;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 import lombok.Data;
-import org.joda.money.Money;
 
 @Data
 public class Account {

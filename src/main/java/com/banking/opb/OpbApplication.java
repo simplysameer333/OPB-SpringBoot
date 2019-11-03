@@ -2,8 +2,6 @@ package com.banking.opb;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.cors.CorsConfiguration;
@@ -12,19 +10,13 @@ import org.springframework.web.filter.CorsFilter;
 
 @SpringBootApplication
 @EnableFeignClients
-public class Application extends SpringBootServletInitializer {
-    public static final String ISO8601_TIMESTAMP_FORMAT = "yyyy-MM-dd\'T\'HH:mm:ss\'Z\'";
-
-    public static void main(String[] args) {
-        SpringApplication.run(Application.class, args);
-    }
-
-    @Override
-    protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
-        return builder.sources(Application.class);
-    }
-
-    //http://stackoverflow.com/questions/31724994/spring-data-rest-and-cors/31748398#31748398
+public class OpbApplication {
+	public static final String ISO8601_TIMESTAMP_FORMAT = "yyyy-MM-dd\'T\'HH:mm:ss\'Z\'";
+	
+	public static void main(String[] args) {
+		SpringApplication.run(OpbApplication.class, args);
+	}
+	//http://stackoverflow.com/questions/31724994/spring-data-rest-and-cors/31748398#31748398
     //This method for enabling CORS is compatible to Spring Data REST and Spring MVC.
     @Bean
     public CorsFilter corsFilter() {

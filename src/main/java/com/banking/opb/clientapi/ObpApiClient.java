@@ -1,16 +1,31 @@
 package com.banking.opb.clientapi;
 
-import com.banking.opb.domain.*;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+import com.banking.opb.domain.Account;
+import com.banking.opb.domain.AccountView;
+import com.banking.opb.domain.Location;
+import com.banking.opb.domain.Transaction;
+import com.banking.opb.domain.TransactionRequest;
+import com.banking.opb.domain.TransactionRequestType;
+import com.banking.opb.domain.User;
 import com.banking.opb.domain.custom.Customer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @FeignClient(name="account", url="${obp.api.versionedUrl}")
 public interface ObpApiClient {

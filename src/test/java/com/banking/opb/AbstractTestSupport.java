@@ -58,7 +58,7 @@ public abstract class AbstractTestSupport {
 
     private void createAccountIfNoneExists() {
         User currentUser = obpApiClient.getCurrentUser();
-
+/*
         if(obpApiClient.getPrivateAccountsNoDetails().size() == 0) {
             //find a bank with at least a branch
             List<String> bankBranchPair = obpBankMetaApiClient.getBanks().getBanks()
@@ -84,8 +84,11 @@ public abstract class AbstractTestSupport {
             accountRequest.setBalance(Money.zero(CurrencyUnit.EUR));
             accountRequest.setType("CURRENT");
             accountRequest.setLabel("Label1");
+           
             Account account = obpApiClient.createAccount(bankBranchPair.get(0), accountId, accountRequest);
+            
+            
             Assert.assertNotNull(account);
-        }
+        }*/
     }
 }

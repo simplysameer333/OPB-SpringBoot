@@ -1,8 +1,10 @@
 package com.banking.opb.domain;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import lombok.Data;
 import org.joda.money.Money;
+
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+import lombok.Data;
 
 @Data
 public class TransactionRequestType {

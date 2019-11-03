@@ -1,13 +1,13 @@
 package com.banking.opb.service;
 
+import java.util.List;
+
 import com.banking.opb.clientapi.ObpBankMetaApiClient;
 import com.banking.opb.domain.ATM;
 import com.banking.opb.domain.Account;
 import com.banking.opb.domain.Bank;
 import com.banking.opb.domain.Branch;
 import com.banking.opb.domain.custom.Customer;
-
-import java.util.List;
 
 public interface IBankService {
     List<Bank> allBanks();

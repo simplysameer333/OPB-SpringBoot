@@ -1,9 +1,7 @@
 package com.banking.opb.clientapi;
 
-import com.banking.opb.domain.ATM;
-import com.banking.opb.domain.Bank;
-import com.banking.opb.domain.Branch;
-import lombok.Data;
+import java.util.List;
+
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,7 +9,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import java.util.List;
+import com.banking.opb.domain.ATM;
+import com.banking.opb.domain.Bank;
+import com.banking.opb.domain.Branch;
+
+import lombok.Data;
 
 @FeignClient(name="bank", url="${obp.api.versionedUrl}")
 public interface ObpBankMetaApiClient {

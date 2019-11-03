@@ -1,7 +1,8 @@
 package com.banking.opb.exception;
 
-import lombok.Getter;
 import org.springframework.http.HttpStatus;
+
+import lombok.Getter;
 
 public class ApiRequestException extends RuntimeException {
     @Getter

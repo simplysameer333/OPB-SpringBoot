@@ -1,6 +1,7 @@
 package com.banking.opb.auth;
 
-import com.banking.opb.clientapi.DirectAuthenticationClient;
+import java.util.Collections;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -10,7 +11,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
 
-import java.util.Collections;
+import com.banking.opb.clientapi.DirectAuthenticationClient;
 
 @Component
 public class ObpAuthProvider  implements AuthenticationProvider {

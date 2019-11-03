@@ -1,6 +1,17 @@
 package com.banking.opb.service.impl;
 
-import com.banking.opb.Utilities.BasicUtilities;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.context.SecurityContextImpl;
+import org.springframework.stereotype.Service;
+
 import com.banking.opb.clientapi.ObpApiClient;
 import com.banking.opb.clientapi.ObpBankMetaApiClient;
 import com.banking.opb.domain.ATM;
@@ -10,17 +21,7 @@ import com.banking.opb.domain.Branch;
 import com.banking.opb.domain.custom.Customer;
 import com.banking.opb.domain.custom.UserLoginInformation;
 import com.banking.opb.service.IBankService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.context.SecurityContextImpl;
-import org.springframework.stereotype.Service;
-
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
+import com.banking.opb.utilities.BasicUtilities;
 
 @Service
 public class BankServiceImpl implements IBankService {

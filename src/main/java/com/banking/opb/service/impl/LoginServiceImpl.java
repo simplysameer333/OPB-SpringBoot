@@ -1,19 +1,20 @@
 package com.banking.opb.service.impl;
 
-import com.banking.opb.Utilities.BasicUtilities;
-import com.banking.opb.Utilities.ConfigProperties;
-import com.banking.opb.clientapi.DirectAuthenticationClient;
-import com.banking.opb.domain.custom.UserLoginInformation;
-import com.banking.opb.service.ILoginService;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.context.SecurityContextImpl;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import com.banking.opb.clientapi.DirectAuthenticationClient;
+import com.banking.opb.domain.custom.UserLoginInformation;
+import com.banking.opb.service.ILoginService;
+import com.banking.opb.utilities.BasicUtilities;
+import com.banking.opb.utilities.ConfigProperties;
 
 @Service
 public class LoginServiceImpl implements ILoginService {

@@ -1,10 +1,11 @@
-package com.banking.opb.Utilities;
+package com.banking.opb.utilities;
+
+import java.util.Random;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
-
-import javax.servlet.http.HttpSession;
-import java.util.Random;
 
 public class BasicUtilities {
     public static boolean isEmptyOrNullString(String string) {

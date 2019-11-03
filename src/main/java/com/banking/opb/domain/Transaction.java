@@ -1,15 +1,17 @@
 package com.banking.opb.domain;
 
-import com.banking.opb.Application;
+import java.util.Date;
+import java.util.List;
+
+import org.joda.money.Money;
+
+import com.banking.opb.OpbApplication;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.joda.money.Money;
-
-import java.util.Date;
-import java.util.List;
 
 @Data
 public class Transaction {
@@ -32,11 +34,11 @@ public class Transaction {
         private String description;
 
         @JsonProperty("posted")
-        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Application.ISO8601_TIMESTAMP_FORMAT, timezone = "UTC")
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = OpbApplication.ISO8601_TIMESTAMP_FORMAT, timezone = "UTC")
         private Date postedDate;
 
         @JsonProperty("completed")
-        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Application.ISO8601_TIMESTAMP_FORMAT, timezone = "UTC")
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = OpbApplication.ISO8601_TIMESTAMP_FORMAT, timezone = "UTC")
         private Date completedDate;
 
         @JsonProperty("new_balance")
@@ -69,7 +71,7 @@ public class Transaction {
 
         private String id;
 
-        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Application.ISO8601_TIMESTAMP_FORMAT, timezone = "UTC")
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = OpbApplication.ISO8601_TIMESTAMP_FORMAT, timezone = "UTC")
         @JsonProperty("date")
         private Date createdAt;
 

@@ -1,0 +1,10 @@
+openbankingpoc_high = (description= (connect_timeout=1200)(retry_count=20)(retry_delay=3)(transport_connect_timeout=3)(address=(protocol=tcps)(port=1522)(host=adb.uk-london-1.oraclecloud.com))(connect_data=(service_name=ecyfn4igydm8di2_openbankingpoc_high.atp.oraclecloud.com))(security=(ssl_server_cert_dn="CN=adwc.eucom-central-1.oraclecloud.com,OU=Oracle BMCS FRANKFURT,O=Oracle Corporation,L=Redwood City,ST=California,C=US")))
+
+openbankingpoc_low = (description= (connect_timeout=1200)(retry_count=20)(retry_delay=3)(transport_connect_timeout=3)(address=(protocol=tcps)(port=1522)(host=adb.uk-london-1.oraclecloud.com))(connect_data=(service_name=ecyfn4igydm8di2_openbankingpoc_low.atp.oraclecloud.com))(security=(ssl_server_cert_dn="CN=adwc.eucom-central-1.oraclecloud.com,OU=Oracle BMCS FRANKFURT,O=Oracle Corporation,L=Redwood City,ST=California,C=US")))
+
+openbankingpoc_medium = (description= (connect_timeout=1200)(retry_count=20)(retry_delay=3)(transport_connect_timeout=3)(address=(protocol=tcps)(port=1522)(host=adb.uk-london-1.oraclecloud.com))(connect_data=(service_name=ecyfn4igydm8di2_openbankingpoc_medium.atp.oraclecloud.com))(security=(ssl_server_cert_dn="CN=adwc.eucom-central-1.oraclecloud.com,OU=Oracle BMCS FRANKFURT,O=Oracle Corporation,L=Redwood City,ST=California,C=US")))
+
+openbankingpoc_tp = (description= (connect_timeout=1200)(retry_count=20)(retry_delay=3)(transport_connect_timeout=3)(address=(protocol=tcps)(port=1522)(host=adb.uk-london-1.oraclecloud.com))(connect_data=(service_name=ecyfn4igydm8di2_openbankingpoc_tp.atp.oraclecloud.com))(security=(ssl_server_cert_dn="CN=adwc.eucom-central-1.oraclecloud.com,OU=Oracle BMCS FRANKFURT,O=Oracle Corporation,L=Redwood City,ST=California,C=US")))
+
+openbankingpoc_tpurgent = (description= (connect_timeout=1200)(retry_count=20)(retry_delay=3)(transport_connect_timeout=3)(address=(protocol=tcps)(port=1522)(host=adb.uk-london-1.oraclecloud.com))(connect_data=(service_name=ecyfn4igydm8di2_openbankingpoc_tpurgent.atp.oraclecloud.com))(security=(ssl_server_cert_dn="CN=adwc.eucom-central-1.oraclecloud.com,OU=Oracle BMCS FRANKFURT,O=Oracle Corporation,L=Redwood City,ST=California,C=US")))
+

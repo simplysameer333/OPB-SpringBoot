@@ -1,5 +1,17 @@
 package com.banking.opb.api;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.banking.opb.clientapi.ObpBankMetaApiClient;
 import com.banking.opb.domain.ATM;
 import com.banking.opb.domain.Account;
@@ -8,11 +20,8 @@ import com.banking.opb.domain.Branch;
 import com.banking.opb.domain.custom.Customer;
 import com.banking.opb.exception.ApiRequestException;
 import com.banking.opb.service.IBankService;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @Slf4j

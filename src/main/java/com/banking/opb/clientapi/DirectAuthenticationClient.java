@@ -1,10 +1,12 @@
 package com.banking.opb.clientapi;
 
-import com.banking.opb.domain.Token;
-import lombok.val;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
+
+import com.banking.opb.domain.Token;
+
+import lombok.val;
 
 @FeignClient(name="account", url="${obp.api.rootUrl}")
 public interface DirectAuthenticationClient {
