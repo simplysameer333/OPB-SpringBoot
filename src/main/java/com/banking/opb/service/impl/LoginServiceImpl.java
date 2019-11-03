@@ -35,18 +35,17 @@ public class LoginServiceImpl implements ILoginService {
                 || BasicUtilities.isEmptyOrNullCharaterArray(userInfo.getPassword()))
             return "MandatoryMissing";
 
-        if (userCache.containsKey(userInfo.getUsername()))
-            return "UserExists";
-
-        userInfo.setUserId("user_".concat(String.valueOf(userCache.size()+1)));
-        userCache.put(userInfo.getUsername(), userInfo);
-        userDao.registerUser(userInfo);
-        return userInfo.getUsername();
+        String username = userDao.registerUser(userInfo);
+        
+        if ("UserExists".equals(username))
+            return username;
+        
+        return username;
     }
 
-    public UserLoginInformation login(UserLoginInformation userInfo) {
+    public UserLoginInformation login(UserLoginInformation userInfo) {  
+    	  
         UserLoginInformation currentUser = userCache.get(userInfo.getUsername());
-        userDao.login(userInfo);
         if (currentUser != null
                 && String.copyValueOf(currentUser.getPassword()).equals(String.copyValueOf(userInfo.getPassword()))) {
             String authToken = directAuthenticationClient.login(properties.getConfigValue("obp.username"),

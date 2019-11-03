@@ -12,4 +12,15 @@ public class UserLoginInformation {
     private char[] password;
     private String email;
     private String authToken;
+    
+	public UserLoginInformation() {
+		super();
+	}
+    
+	public UserLoginInformation(String username, String password, String email) {
+		super();
+		this.username = username;
+		this.password = password.toCharArray();
+		this.email = email;
+	}
 }

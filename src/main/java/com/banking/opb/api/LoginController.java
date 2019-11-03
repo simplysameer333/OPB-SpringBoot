@@ -1,6 +1,5 @@
 package com.banking.opb.api;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
 
@@ -35,7 +34,7 @@ public class LoginController {
         return Collections.singletonMap("response", response);
     }
 
-    @PostMapping(value = "/api/loginUser", consumes = "application/json", produces = "application/json")
+    @GetMapping(value = "/api/loginUser", consumes = "application/json", produces = "application/json")    
     public Map<String, String> login(@RequestBody UserLoginInformation userInfo) {
         try {
             userInfo = loginService.login(userInfo);
@@ -48,6 +47,5 @@ public class LoginController {
             throw new ApiRequestException("error while getting user info", HttpStatus.NO_CONTENT, e);
         }
         return Collections.singletonMap("response", "user not found");
-
     }
 }

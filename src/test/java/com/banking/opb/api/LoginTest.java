@@ -20,11 +20,8 @@ public class LoginTest {
     private UserLoginInformation testUser = null;
 
     @Before
-    public void init() {
-        testUser = new UserLoginInformation();
-        testUser.setUsername("testUsername");
-        testUser.setPassword("test@123".toCharArray());
-        testUser.setEmail("test@test.comS");
+    public void init() { 
+        testUser = new UserLoginInformation ("testUsername", "test@123", "test@test.com");
     }
 
     @Test
