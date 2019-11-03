@@ -37,10 +37,18 @@ public class DatabaseConfig {
         	 PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
 
              // Ant-style path matching
-            Resource[] resources = resolver.getResources("/wallet/**");
+            Resource[] resources = resolver.getResources("\\wallet\\");
+            String seprator = System.getProperty("file.separator");
             
             String oracle_net_wallet_location = resources[0].getURI().toString().replace(resources[0].getFilename(), "");
             oracle_net_wallet_location = oracle_net_wallet_location.replace("file:/", "");
+            oracle_net_wallet_location =oracle_net_wallet_location.replace("wallet/", "wallet");
+            oracle_net_wallet_location =oracle_net_wallet_location.replace("!", "");
+            
+            if ("\\".equals(seprator)) {
+            	oracle_net_wallet_location = oracle_net_wallet_location.replace("/", seprator);
+            }
+            
             dataSource = new OracleDataSource();
             Properties props = new Properties();
             props.put("oracle.net.wallet_location", "(source=(method=file)(method_data=(directory="+oracle_net_wallet_location+")))");
