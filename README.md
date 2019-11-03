@@ -1,4 +1,6 @@
-## Open Bank API client implemented with Spring Boot
+THIS IS NOT COORECT, PLEASE DNT FOLLOW README
+
+## Open Bank API client implemented with Spring Boot 
 This is a technology demonstration of the OBP API `v3.1.0` capabilities.
 This project provides Java bindings to sveral OBP REST API endpoints, including banks, branches, accounts and transactions.
 Included is also a demo webpage that puts all available bank branches in the `https://apisandbox.openbankproject.com` sandbox on a map.
@@ -11,7 +13,7 @@ The OBP Client API is using Spring Boot 2.1.x and needs JDK 10.
 Sign-up at the OBP sandbox: https://apisandbox.openbankproject.com/ Note the consumer key, username and password.
 Then edit `/src/main/resources/application.properties` and paste the consumer key above as the `obp.consumerKey` value.  
  
-The standard command ```./gradlew bootRun``` will start a Tomcat container running on port 8080. Open a browser and browse to http://localhost:8080
+The standard command ```./gradlew bootRun``` will start a Tomcat container running on port 5000. Open a browser and browse to http://localhost:8080
 
 To login, use the username and password you noted above. After a successful login, a map with all available branches present in the `apisandbox` will be displayed.
 
