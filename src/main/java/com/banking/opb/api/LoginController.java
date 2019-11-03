@@ -50,9 +50,4 @@ public class LoginController {
         return Collections.singletonMap("response", "user not found");
 
     }
-
-    @GetMapping(value = "/api/AllUsersLogin")
-    public Collection<UserLoginInformation> AllUsersLogin(@RequestBody UserLoginInformation userInfo) {
-        return loginService.getAllSingedUpUsers();
-    }
 }

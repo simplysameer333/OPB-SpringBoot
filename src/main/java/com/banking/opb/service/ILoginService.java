@@ -6,6 +6,5 @@ import com.banking.opb.domain.custom.UserLoginInformation;
 
 public interface ILoginService {
     String singedUpUser(UserLoginInformation userInfo);
-    UserLoginInformation login(UserLoginInformation userInfo) ;
-    Collection<UserLoginInformation> getAllSingedUpUsers();
+    UserLoginInformation login(UserLoginInformation userInfo);
 }

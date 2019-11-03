@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.banking.opb.clientapi.DirectAuthenticationClient;
 import com.banking.opb.domain.custom.UserLoginInformation;
+import com.banking.opb.repo.IUserDao;
 import com.banking.opb.service.ILoginService;
 import com.banking.opb.utilities.BasicUtilities;
 import com.banking.opb.utilities.ConfigProperties;
@@ -25,6 +26,9 @@ public class LoginServiceImpl implements ILoginService {
 
     @Autowired
     private DirectAuthenticationClient directAuthenticationClient;
+    
+    @Autowired
+    private IUserDao userDao;
 
     public String singedUpUser(UserLoginInformation userInfo) {
         if (BasicUtilities.isEmptyOrNullString(userInfo.getEmail()) || BasicUtilities.isEmptyOrNullString(userInfo.getUsername())
@@ -36,11 +40,13 @@ public class LoginServiceImpl implements ILoginService {
 
         userInfo.setUserId("user_".concat(String.valueOf(userCache.size()+1)));
         userCache.put(userInfo.getUsername(), userInfo);
+        userDao.registerUser(userInfo);
         return userInfo.getUsername();
     }
 
     public UserLoginInformation login(UserLoginInformation userInfo) {
         UserLoginInformation currentUser = userCache.get(userInfo.getUsername());
+        userDao.login(userInfo);
         if (currentUser != null
                 && String.copyValueOf(currentUser.getPassword()).equals(String.copyValueOf(userInfo.getPassword()))) {
             String authToken = directAuthenticationClient.login(properties.getConfigValue("obp.username"),
@@ -52,9 +58,5 @@ public class LoginServiceImpl implements ILoginService {
             return currentUser;
         }
         return null;
-    }
-
-    public Collection<UserLoginInformation> getAllSingedUpUsers() {
-        return userCache.values();
     }
 }
