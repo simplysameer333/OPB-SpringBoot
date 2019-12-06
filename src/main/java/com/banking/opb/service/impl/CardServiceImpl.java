@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.banking.opb.domain.custom.Card;
 import com.banking.opb.domain.custom.SmsRequest;
+import com.banking.opb.repo.IAccountDao;
 import com.banking.opb.service.ICardService;
 import com.banking.opb.service.TwilioSmsSender;
 import com.banking.opb.utilities.BasicUtilities;
@@ -19,18 +20,25 @@ public class CardServiceImpl implements ICardService {
 
     @Autowired
     private TwilioSmsSender twilioSmsSender;
-
+    
+    @Autowired
+    private IAccountDao accountDao;
+    
     @Override
     public String addCard(Card cardInfo) {
-        if (BasicUtilities.isEmptyOrNullString(cardInfo.getAccountId())
+        /*if (BasicUtilities.isEmptyOrNullString(cardInfo.getAccountId())
                 || BasicUtilities.isEmptyOrNullString(cardInfo.getCardNumber())
                 || BasicUtilities.isEmptyOrNullString(cardInfo.getBranchId()))
-            return "MandatoryMissing";
-        if (cardCache.containsKey(cardInfo.getCardNumber()))
+            return "MandatoryMissing";*/
+        if (cardCache.containsKey(cardInfo.getCardnumber()))
             return "CardExists";
-        cardInfo.setId("user_".concat(String.valueOf(cardCache.size() + 1)));
-        cardCache.put(cardInfo.getCardNumber(), cardInfo);
-        return cardInfo.getCardNumber();
+        String cardStatus = "Unable to add the card";
+        if(("Success").equals(accountDao.addCard(cardInfo))) {
+        	cardStatus = "Success";
+	        cardInfo.setId("user_".concat(String.valueOf(cardCache.size() + 1)));
+	        cardCache.put(cardInfo.getCardnumber(), cardInfo);
+        }
+        return cardStatus;
     }
 
     @Override
@@ -39,6 +47,11 @@ public class CardServiceImpl implements ICardService {
         return true;
     }
 
+    @Override
+    public String getCardList() {
+        return accountDao.getCardsList();
+    }
+    
     @Override
     public Card getCardInfo(String card_id) {
         return cardCache.get(card_id.trim());

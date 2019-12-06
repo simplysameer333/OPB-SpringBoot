@@ -6,5 +6,6 @@ import com.banking.opb.domain.custom.UserLoginInformation;
 
 public interface IUserDao {
 	String registerUser(UserLoginInformation userInfo);
+	String activateUser(UserLoginInformation userInfo);
 	UserLoginInformation login(UserLoginInformation userInfo);
 }

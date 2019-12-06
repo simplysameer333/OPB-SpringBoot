@@ -47,6 +47,7 @@ public class DatabaseConfig {
 			
 			String zipFilePath = assetsInfo.getAbsolutePath();
 			String path = zipFilePath.replace("\\wallet.zip", "");
+			path = path.replace("/wallet.zip", "");
 			
 			if ("\\".equals(seprator)) {
 				path = path.replace("/", seprator);

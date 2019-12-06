@@ -20,6 +20,7 @@ import com.banking.opb.domain.Transaction;
 import com.banking.opb.domain.TransactionRequest;
 import com.banking.opb.domain.TransactionRequestType;
 import com.banking.opb.domain.User;
+import com.banking.opb.domain.custom.Card;
 import com.banking.opb.domain.custom.Customer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -44,7 +45,11 @@ public interface ObpApiClient {
 
     @GetMapping(value = "banks/{bankId}/accounts/{accountId}/views")
     AccountViews getViewsForAccount(@PathVariable("bankId") String bankId, @PathVariable("accountId") String accountId);
-
+    
+    @GetMapping(value = "banks/{bankId}/accounts/{accountId}/owner/transactions/{transactionId}/transaction")
+    Card getCardById(@PathVariable("bankId") String bankId, @PathVariable("accountId") String accountId,
+                                   @PathVariable("cardId") String transactionId);
+    
     @GetMapping(value = "banks/{bankId}/accounts/{accountId}/owner/transactions")
     Transactions getTransactionsForAccount(@PathVariable("bankId") String bankId,
                                            @PathVariable("accountId") String accountId);

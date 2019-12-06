@@ -16,6 +16,6 @@ public class TwilioInitilizer {
     public TwilioInitilizer(TwilioConfigration config) {
         this.twilioConfigration = config;
         Twilio.init(twilioConfigration.getAccountSid(), twilioConfigration.getAuthToken());
-        log.info("Twilio Initilized");
+        //log.info("Twilio Initilized");
     }
 }

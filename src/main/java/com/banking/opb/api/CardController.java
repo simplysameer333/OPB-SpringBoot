@@ -1,6 +1,7 @@
 package com.banking.opb.api;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import com.banking.opb.clientapi.ObpApiClient;
+import com.banking.opb.clientapi.ObpCardApiClient;
+import com.banking.opb.clientapi.ObpCardApiClient.Cards;
 import com.banking.opb.domain.custom.Card;
 import com.banking.opb.service.ICardService;
 import com.banking.opb.utilities.BasicUtilities;
@@ -26,14 +29,14 @@ public class CardController {
 
     @Autowired
     private ICardService ICardServiceImpl;
+    
+    @Autowired 
+    private ObpCardApiClient obpCardApiClient;
 
     @PostMapping(value = "/api/card/addCard", consumes = "application/json", produces = "application/json")
     public Map<String, String> signUp(@RequestBody Card cardInfo) {
-        String response = "Failed";
-        String username = ICardServiceImpl.addCard(cardInfo);
-        if (username != null && !"MandatoryMissing".equals(username) && !"CardExists".equals(username))
-            response = "Success";
-        return Collections.singletonMap("response", response);
+    	
+        return Collections.singletonMap("response", ICardServiceImpl.addCard(cardInfo));
     }
 
     @PostMapping(value = "/api/card/setdefault", consumes = "application/json", produces = "application/json")
@@ -43,6 +46,12 @@ public class CardController {
         return Collections.singletonMap("response", response);
     }
 
+    @GetMapping(value = "/api/card/cardList")
+    public Map<String, String> getCardsList() {
+    	List<Card> cardsList = obpCardApiClient.getCardsForAccount().getCards();
+        return null;
+    }
+    
     @GetMapping(value = "/api/card/{cardId}")
     public Map<String, String> generatePassCode(@RequestParam String cardId) {
         if (BasicUtilities.isEmptyOrNullString(cardId))
@@ -55,10 +64,10 @@ public class CardController {
 
     @PostMapping(value = "/api/card/verifyPassCode/", consumes = "application/json", produces = "application/json")
     public Map<String, String> verifyPassCode(@RequestBody Card cardInfo) {
-        if (BasicUtilities.isEmptyOrNullString(cardInfo.getCardNumber()))
+        if (BasicUtilities.isEmptyOrNullString(cardInfo.getCardnumber()))
             return Collections.singletonMap("response", "Authentication Failed, User Id not provided");
         else {
-            boolean response = ICardServiceImpl.validateCode(cardInfo.getCardNumber(), cardInfo.getLastCode());
+            boolean response = ICardServiceImpl.validateCode(cardInfo.getCardnumber(), cardInfo.getLastCode());
             if (response)
                 return Collections.singletonMap("response", "Authentication Successful");
             return Collections.singletonMap("response", "Authentication Failed");

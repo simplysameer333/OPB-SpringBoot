@@ -14,7 +14,8 @@ public class Account {
 
     @JsonProperty("user_id")
     private String userId = "";
-
+    
+    @JsonProperty("label")
     private String label;
 
     @JsonProperty("bank_id")

@@ -1,5 +1,7 @@
 package com.banking.opb.repo.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -26,7 +28,8 @@ public class UserDaoImpl implements IUserDao {
 		String sqlquery = queries.getQueries().get("checkUser");
 		SqlParameterSource namedParameters = new MapSqlParameterSource()
 				.addValue("username", userInfo.getUsername())
-				.addValue("email", userInfo.getEmail());
+				.addValue("email", userInfo.getEmail())
+				.addValue("phone", userInfo.getPhone());
 		
 		
 		int count  = namedParameterJdbcTemplate.queryForObject(sqlquery, namedParameters, Integer.class);
@@ -37,7 +40,8 @@ public class UserDaoImpl implements IUserDao {
 		namedParameters = new MapSqlParameterSource()
 				.addValue("username", userInfo.getUsername())
 				.addValue("password", String.copyValueOf(userInfo.getPassword()))
-				.addValue("email", userInfo.getEmail());
+				.addValue("email", userInfo.getEmail())
+				.addValue("phone", userInfo.getPhone());
 		
 		count = namedParameterJdbcTemplate.update(sqlquery, namedParameters);
 		if (count > 0)
@@ -49,7 +53,27 @@ public class UserDaoImpl implements IUserDao {
 	@Override
 	public UserLoginInformation login(UserLoginInformation userInfo) {
 		
+		String sqlquery = queries.getQueries().get("loginVerify");
+		SqlParameterSource namedParameters = new MapSqlParameterSource()
+				.addValue("username", userInfo.getUsername())
+				.addValue("password", String.valueOf(userInfo.getPassword()));
 		
+		
+		List<UserLoginInformation> userList  = namedParameterJdbcTemplate.query(sqlquery, namedParameters,new UserInfoRowMapper());
+		if (userList != null && userList.size()==1)
+			return userList.get(0);
+		
+		return null;
+	}
+
+	@Override
+	public String activateUser(UserLoginInformation userInfo) {
+		String sqlquery = queries.getQueries().get("activateUser");
+		SqlParameterSource namedParameters = new MapSqlParameterSource()
+				.addValue("email", userInfo.getEmail());
+		int count = namedParameterJdbcTemplate.update(sqlquery, namedParameters);
+		if (count > 0)
+			return userInfo.getEmail();
 		return null;
 	}
 
