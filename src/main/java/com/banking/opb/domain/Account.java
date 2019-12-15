@@ -1,7 +1,10 @@
 package com.banking.opb.domain;
 
+import java.util.List;
+
 import org.joda.money.Money;
 
+import com.banking.opb.domain.custom.Views_available;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -38,5 +41,8 @@ public class Account {
 
     @JsonProperty("account_routing")
     private AccountRouting accountRouting;
+    
+    @JsonProperty("views_available")
+    private List<Views_available> views_available;
 
 }

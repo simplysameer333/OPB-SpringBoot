@@ -23,14 +23,17 @@ public class Transaction {
 
     @JsonProperty("this_account")
     private Account ownAccount;
-
+    
+    @JsonProperty("details")
     private Details details;
 
     private Metadata metadata;
 
     @Data
     private class Details {
+    	@JsonProperty("type")
         private String type;
+    	@JsonProperty("description")
         private String description;
 
         @JsonProperty("posted")
@@ -42,12 +45,12 @@ public class Transaction {
         private Date completedDate;
 
         @JsonProperty("new_balance")
-        @JsonDeserialize(using = MoneyJson.MoneyDeserializer.class)
-        private Money newBalance;
+        //@JsonDeserialize(using = MoneyJson.MoneyDeserializer.class)
+        private Amount newBalance;
 
         @JsonProperty("value")
-        @JsonDeserialize(using = MoneyJson.MoneyDeserializer.class)
-        private Money value;
+        //@JsonDeserialize(using = MoneyJson.MoneyDeserializer.class)
+        private Amount value;
     }
 
     @Data
@@ -57,7 +60,7 @@ public class Transaction {
         private List<Tag> tags;
         private List<Image> images;
 
-        @JsonProperty("where")
+        //@JsonProperty("where")
         private Location location;
     }
 
@@ -71,8 +74,8 @@ public class Transaction {
 
         private String id;
 
-        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = OpbApplication.ISO8601_TIMESTAMP_FORMAT, timezone = "UTC")
-        @JsonProperty("date")
+        //@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = OpbApplication.ISO8601_TIMESTAMP_FORMAT, timezone = "UTC")
+        //@JsonProperty("date")
         private Date createdAt;
 
         @Override
@@ -93,7 +96,7 @@ public class Transaction {
 
     @Data
     public static class Image {
-        @JsonProperty("image_URL")
+        //@JsonProperty("image_URL")
         private String imageUrl;
     }
 }

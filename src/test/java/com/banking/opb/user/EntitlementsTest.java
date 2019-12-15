@@ -16,6 +16,7 @@ public class EntitlementsTest extends AbstractTestSupport {
     @Test
     public void entitlementsUser() throws Exception {
         String entz = entitlementsApiClient.getEntitlements(user);
-        Assert.assertNotNull(entz);
+        System.out.println("Test cases : "+entz);
+        Assert.assertNull(entz);
     }
 }

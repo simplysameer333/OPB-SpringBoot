@@ -1,12 +1,17 @@
 package com.banking.opb.service.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.banking.opb.clientapi.ObpCardApiClient;
+import com.banking.opb.clientapi.ObpTransactionApiClient;
 import com.banking.opb.domain.custom.Card;
+import com.banking.opb.domain.Transaction;
 import com.banking.opb.domain.custom.SmsRequest;
 import com.banking.opb.repo.IAccountDao;
 import com.banking.opb.service.ICardService;
@@ -24,6 +29,12 @@ public class CardServiceImpl implements ICardService {
     @Autowired
     private IAccountDao accountDao;
     
+    @Autowired 
+    private ObpTransactionApiClient obpTransactionApiClient;
+    
+    @Autowired 
+    private ObpCardApiClient obpCardApiClient;
+    
     @Override
     public String addCard(Card cardInfo) {
         /*if (BasicUtilities.isEmptyOrNullString(cardInfo.getAccountId())
@@ -33,12 +44,19 @@ public class CardServiceImpl implements ICardService {
         if (cardCache.containsKey(cardInfo.getCardnumber()))
             return "CardExists";
         String cardStatus = "Unable to add the card";
-        if(("Success").equals(accountDao.addCard(cardInfo))) {
-        	cardStatus = "Success";
-	        cardInfo.setId("user_".concat(String.valueOf(cardCache.size() + 1)));
-	        cardCache.put(cardInfo.getCardnumber(), cardInfo);
+        List<Card> cardList = obpCardApiClient.getCards().getCards();
+        System.out.println("CardInfo:"+cardInfo+":api cards size:"+cardList.size());
+        boolean cardVerify = false;
+        for(Card card : cardList) {
+        	System.out.println("api card no:"+card.getCardnumber());
+        	if(cardInfo.getCardnumber().equals(card.getCardnumber())) { 
+        		cardVerify = true;
+        		break;
+        	}
         }
-        return cardStatus;
+        if(!cardVerify)
+        	return "Invalid Card";
+        return accountDao.addCard(cardInfo);
     }
 
     @Override
@@ -48,8 +66,14 @@ public class CardServiceImpl implements ICardService {
     }
 
     @Override
-    public String getCardList() {
-        return accountDao.getCardsList();
+    public List<Card> getCardList() {
+    	List<String> cards = accountDao.getCardsList();
+    	List<Card> cardList = new ArrayList<Card>();
+    	for(Card card : obpCardApiClient.getCards().getCards()) {
+    		if(cards.contains(card.getCardnumber()))
+    			cardList.add(card);
+    	}
+        return cardList;
     }
     
     @Override

@@ -15,9 +15,15 @@ import org.springframework.web.client.RestTemplate;
 
 import com.banking.opb.clientapi.ObpApiClient;
 import com.banking.opb.clientapi.ObpCardApiClient;
-import com.banking.opb.clientapi.ObpCardApiClient.Cards;
+import com.banking.opb.clientapi.ObpTransactionApiClient;
+import com.banking.opb.domain.Bank;
+import com.banking.opb.domain.MappedPhysicalCard;
+import com.banking.opb.domain.Transaction;
+import com.banking.opb.domain.User;
 import com.banking.opb.domain.custom.Card;
+import com.banking.opb.exception.ApiRequestException;
 import com.banking.opb.service.ICardService;
+import com.banking.opb.service.ITransactionService;
 import com.banking.opb.utilities.BasicUtilities;
 
 import lombok.extern.slf4j.Slf4j;
@@ -29,10 +35,16 @@ public class CardController {
 
     @Autowired
     private ICardService ICardServiceImpl;
-    
+        
     @Autowired 
     private ObpCardApiClient obpCardApiClient;
+    
+    @Autowired 
+    private ObpTransactionApiClient obpTransactionApiClient;
 
+    /*@Autowired
+    private ITransactionService transactionService;*/
+    
     @PostMapping(value = "/api/card/addCard", consumes = "application/json", produces = "application/json")
     public Map<String, String> signUp(@RequestBody Card cardInfo) {
     	
@@ -47,9 +59,14 @@ public class CardController {
     }
 
     @GetMapping(value = "/api/card/cardList")
-    public Map<String, String> getCardsList() {
-    	List<Card> cardsList = obpCardApiClient.getCardsForAccount().getCards();
-        return null;
+    public List<Card> getCardsList() {
+        return ICardServiceImpl.getCardList();
+    }
+    
+    @GetMapping(value = "/api/transaction/transactionList")
+    public List<Transaction> getTransactions() {
+    	
+        return obpTransactionApiClient.getTransactions().getTransactions();
     }
     
     @GetMapping(value = "/api/card/{cardId}")

@@ -1,5 +1,6 @@
 package com.banking.opb.repo.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -52,11 +53,12 @@ public class AccountDaoImpl implements IAccountDao {
 	}
 
 	@Override
-	public String getCardsList() {
+	public List<String> getCardsList() {
 		String sqlquery = queries.getQueries().get("cardList");
+		List<String> cards = new ArrayList<String>();
 		List<Map<String,Object>> cardList;
 		cardList  = namedParameterJdbcTemplate.queryForList(sqlquery, new MapSqlParameterSource());
-		JSONArray json_arr=new JSONArray();
+		/*JSONArray json_arr=new JSONArray();
 	    for (Map<String, Object> map : cardList) {
 	        JSONObject json_obj=new JSONObject();
 	        for (Map.Entry<String, Object> entry : map.entrySet()) {
@@ -71,7 +73,11 @@ public class AccountDaoImpl implements IAccountDao {
 	        }
 	        json_arr.put(json_obj);
 	    }
-		return json_arr.toString();
+		return json_arr.toString();*/
+		for (Map<String, Object> map : cardList) {
+			cards.add(map.get("CARDNUMBER").toString());
+		}
+		return cards;
 	}
 	
 	@Override

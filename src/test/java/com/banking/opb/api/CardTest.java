@@ -21,7 +21,7 @@ public class CardTest {
 
     @Before
     public void init() { 
-        testCard = new Card ("1234 5678 9123 4567", "Test Card", "12/12","555");
+        testCard = null/*new Card ("1234 5678 9123 4567", "Test Card", "12/12","555")*/;
     }
 
     @Test

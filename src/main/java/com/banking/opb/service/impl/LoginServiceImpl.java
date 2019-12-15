@@ -57,16 +57,17 @@ public class LoginServiceImpl implements ILoginService {
 
     public UserLoginInformation login(UserLoginInformation userInfo) {  
     	  
-        /*UserLoginInformation currentUser = userCache.get(userInfo.getUsername());
-        if (currentUser != null
-                && String.copyValueOf(currentUser.getPassword()).equals(String.copyValueOf(userInfo.getPassword()))) {
-            String authToken = directAuthenticationClient.login(properties.getConfigValue("obp.username"),
+        UserLoginInformation currentUser = userCache.get(userInfo.getUsername());
+        /*if (currentUser != null
+                && String.copyValueOf(currentUser.getPassword()).equals(String.copyValueOf(userInfo.getPassword()))) {*/
+            /*String authToken = directAuthenticationClient.login(properties.getConfigValue("obp.username"),
                     properties.getConfigValue("obp.password"),
-                    properties.getConfigValue("obp.consumerKey"));
+                    properties.getConfigValue("obp.consumerKey"));*/
+        	/*String authToken = directAuthenticationClient.login("simply_sameer","Justme@123","alp1mr1btifdpwv32qekdm1mkjwqvjom45gyi4in");
             currentUser.setAuthToken(authToken);
             SecurityContextHolder.setContext(new SecurityContextImpl(
-                    new UsernamePasswordAuthenticationToken(userInfo.getUsername(), authToken)));
-            return currentUser;
+                    new UsernamePasswordAuthenticationToken(userInfo.getUsername(), authToken)));*/
+           /* return currentUser;
         }*/
     	if (BasicUtilities.isEmptyOrNullString(userInfo.getUsername())
                 || BasicUtilities.isEmptyOrNullCharaterArray(userInfo.getPassword()))
