@@ -5,5 +5,7 @@ import java.util.List;
 import com.banking.opb.domain.Transaction;
 
 public interface ITransactionService {
-    List<Transaction> getTransactions(String bank, String account);
+    List<Transaction> getTransactions();
+    
+    Transaction makeTransaction();
 }

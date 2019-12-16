@@ -15,10 +15,13 @@ public class TransactionServiceImpl implements ITransactionService {
 	@Autowired
 	ObpTransactionApiClient obpTransactionApiClient;
 	@Override
-	public List<Transaction> getTransactions(String bank, String account) {
-		
-	    	//List<Transaction> transactionList = obpTransactionApiClient.getTransactionsforActAtBnk().getTransactions();
-		
+	public List<Transaction> getTransactions() {
+				
+		return obpTransactionApiClient.getTransactions().getTransactions();
+	}
+	@Override
+	public Transaction makeTransaction() {
+		// TODO Auto-generated method stub
 		return null;
 	}
 

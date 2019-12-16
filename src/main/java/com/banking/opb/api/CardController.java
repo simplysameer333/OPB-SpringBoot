@@ -13,11 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
-import com.banking.opb.clientapi.ObpApiClient;
-import com.banking.opb.clientapi.ObpCardApiClient;
-import com.banking.opb.clientapi.ObpTransactionApiClient;
 import com.banking.opb.domain.Bank;
-import com.banking.opb.domain.MappedPhysicalCard;
 import com.banking.opb.domain.Transaction;
 import com.banking.opb.domain.User;
 import com.banking.opb.domain.custom.Card;
@@ -35,15 +31,9 @@ public class CardController {
 
     @Autowired
     private ICardService ICardServiceImpl;
-        
-    @Autowired 
-    private ObpCardApiClient obpCardApiClient;
     
-    @Autowired 
-    private ObpTransactionApiClient obpTransactionApiClient;
-
-    /*@Autowired
-    private ITransactionService transactionService;*/
+    @Autowired
+    private ITransactionService transactionServiceImpl;
     
     @PostMapping(value = "/api/card/addCard", consumes = "application/json", produces = "application/json")
     public Map<String, String> signUp(@RequestBody Card cardInfo) {
@@ -65,8 +55,7 @@ public class CardController {
     
     @GetMapping(value = "/api/transaction/transactionList")
     public List<Transaction> getTransactions() {
-    	
-        return obpTransactionApiClient.getTransactions().getTransactions();
+        return transactionServiceImpl.getTransactions();
     }
     
     @GetMapping(value = "/api/card/{cardId}")
@@ -91,7 +80,7 @@ public class CardController {
         }
     }
 
-    @GetMapping(value = "/api/card/transactions/{cardId}")
+   /* @GetMapping(value = "/api/card/transactions/{cardId}")
     public ObpApiClient.Transactions getAllTransactionCard(@RequestParam String cardId) {
         Card cardInfor = ICardServiceImpl.getCardInfo(cardId);
         RestTemplate restTemplate = new RestTemplate();
@@ -99,7 +88,6 @@ public class CardController {
                 "${obp.api.versionedUrl}/banks/{bankId}/accounts/{accountId}/owner/transactions",
                 ObpApiClient.Transactions.class, cardInfor.getBranchId(), cardInfor.getAccountId()
         );
-    }
-
+    }*/
 
 }

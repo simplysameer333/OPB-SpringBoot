@@ -9,9 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.banking.opb.clientapi.ObpCardApiClient;
-import com.banking.opb.clientapi.ObpTransactionApiClient;
 import com.banking.opb.domain.custom.Card;
-import com.banking.opb.domain.Transaction;
 import com.banking.opb.domain.custom.SmsRequest;
 import com.banking.opb.repo.IAccountDao;
 import com.banking.opb.service.ICardService;
@@ -28,10 +26,7 @@ public class CardServiceImpl implements ICardService {
     
     @Autowired
     private IAccountDao accountDao;
-    
-    @Autowired 
-    private ObpTransactionApiClient obpTransactionApiClient;
-    
+        
     @Autowired 
     private ObpCardApiClient obpCardApiClient;
     
@@ -45,16 +40,14 @@ public class CardServiceImpl implements ICardService {
             return "CardExists";
         String cardStatus = "Unable to add the card";
         List<Card> cardList = obpCardApiClient.getCards().getCards();
-        System.out.println("CardInfo:"+cardInfo+":api cards size:"+cardList.size());
-        boolean cardVerify = false;
+        boolean cardExist = false;
         for(Card card : cardList) {
-        	System.out.println("api card no:"+card.getCardnumber());
         	if(cardInfo.getCardnumber().equals(card.getCardnumber())) { 
-        		cardVerify = true;
+        		cardExist = true;
         		break;
         	}
         }
-        if(!cardVerify)
+        if(!cardExist)
         	return "Invalid Card";
         return accountDao.addCard(cardInfo);
     }
