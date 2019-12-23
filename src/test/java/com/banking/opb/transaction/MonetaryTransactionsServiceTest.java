@@ -3,6 +3,7 @@ package com.banking.opb.transaction;
 import com.banking.opb.AbstractTestSupport;
 import com.banking.opb.clientapi.ObpApiClient;
 import com.banking.opb.domain.Account;
+import com.banking.opb.domain.Amount;
 import com.banking.opb.domain.Transaction;
 import com.banking.opb.domain.TransactionRequest;
 import org.joda.money.CurrencyUnit;
@@ -32,7 +33,7 @@ public class MonetaryTransactionsServiceTest extends AbstractTestSupport {
         ObpApiClient.TransactionRequestTypes txTypes = obpApiClient.getTransactionTypes(bankId, accountIdOne);
 
         TransactionRequest transactionRequest = new TransactionRequest(
-                new TransactionRequest.DestAccount(bankId, accountIdOne), Money.of(CurrencyUnit.EUR, 5), "some description");
+                new TransactionRequest.DestAccount(bankId, accountIdOne), new Amount("EUR", "5"), "some description");
 
         String result = obpApiClient.initiateTransaction(bankId, accounts.get(1).getId(), "SANDBOX_TAN", transactionRequest);
 

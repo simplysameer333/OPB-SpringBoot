@@ -14,12 +14,15 @@ import lombok.NoArgsConstructor;
 @Data
 public class TransactionRequest {
 
+	@JsonProperty("to")
     private DestAccount to;
 
-    @JsonDeserialize(using = MoneyJson.MoneyDeserializer.class)
-    @JsonSerialize(using = MoneyJson.MoneySerializer.class)
-    private Money value;
-
+    @JsonProperty("value")
+    /*@JsonDeserialize(using = MoneyJson.MoneyDeserializer.class)
+    @JsonSerialize(using = MoneyJson.MoneySerializer.class)*/
+    private Amount value;
+	
+    @JsonProperty("description")
     private String description;
 
     @Data

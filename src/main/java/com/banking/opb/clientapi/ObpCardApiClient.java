@@ -17,7 +17,8 @@ import lombok.Data;
 @FeignClient(name="card", url="${obp.api.versionedUrl}")
 public interface ObpCardApiClient {
 
-	@RequestMapping(method = RequestMethod.GET, value = "cards", headers = "Authorization=DirectLogin username=simply_sameer,password=Justme@123,consumer_key=alp1mr1btifdpwv32qekdm1mkjwqvjom45gyi4in,token=eyJhbGciOiJIUzI1NiJ9.eyIiOiIifQ.5rt5-ybWPmg_Woo0lsUlPPD6_Nka1FYUmfY_kDdd3pI", consumes = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(method = RequestMethod.GET, value = "cards", headers = "Authorization=DirectLogin username=${obp.username}," 
+			+ "password=${obp.password},consumer_key=${obp.consumerKey},token=${obp.token}", consumes = MediaType.APPLICATION_JSON_VALUE)
     Cards getCards();
 	
 	@Data

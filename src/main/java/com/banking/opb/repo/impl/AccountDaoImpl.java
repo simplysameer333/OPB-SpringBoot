@@ -43,7 +43,8 @@ public class AccountDaoImpl implements IAccountDao {
 				.addValue("cardnumber", cardInfo.getCardnumber())
 				.addValue("expirydate", cardInfo.getExpirydate())
 				.addValue("cvv", cardInfo.getCvv())
-				.addValue("nameoncard", String.valueOf(cardInfo.getNameoncard()));
+				.addValue("nameoncard", String.valueOf(cardInfo.getNameoncard()))
+				.addValue("userId", 131);
 		
 		
 		count  = namedParameterJdbcTemplate.update(sqlquery, namedParameters);
