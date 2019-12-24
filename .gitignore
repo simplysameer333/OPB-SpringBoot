@@ -44,3 +44,4 @@ build/
 wallet.zip
 wallet/
 src/main/resources/application.yml
+*.yml
