@@ -55,7 +55,7 @@ public class UserDaoImpl implements IUserDao {
 		
 		String sqlquery = queries.getQueries().get("loginVerify");
 		SqlParameterSource namedParameters = new MapSqlParameterSource()
-				.addValue("username", userInfo.getUsername())
+				.addValue("email", userInfo.getEmail())
 				.addValue("password", String.valueOf(userInfo.getPassword()));
 		
 		

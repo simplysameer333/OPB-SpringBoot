@@ -57,7 +57,7 @@ public class LoginServiceImpl implements ILoginService {
 
     public UserLoginInformation login(UserLoginInformation userInfo) {  
     	  
-        UserLoginInformation currentUser = userCache.get(userInfo.getUsername());
+        UserLoginInformation currentUser = userCache.get(userInfo.getEmail());
         /*if (currentUser != null
                 && String.copyValueOf(currentUser.getPassword()).equals(String.copyValueOf(userInfo.getPassword()))) {*/
             /*String authToken = directAuthenticationClient.login(properties.getConfigValue("obp.username"),
@@ -69,7 +69,7 @@ public class LoginServiceImpl implements ILoginService {
                     new UsernamePasswordAuthenticationToken(userInfo.getUsername(), authToken)));*/
            /* return currentUser;
         }*/
-    	if (BasicUtilities.isEmptyOrNullString(userInfo.getUsername())
+    	if (BasicUtilities.isEmptyOrNullString(userInfo.getEmail())
                 || BasicUtilities.isEmptyOrNullCharaterArray(userInfo.getPassword()))
             return null;
 

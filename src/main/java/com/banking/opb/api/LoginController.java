@@ -54,7 +54,7 @@ public class LoginController {
             if (userInfo != null) {
                 //log.info(userInfo.getUserId());
                 BasicUtilities.session().setAttribute("activeuser", userInfo);
-                return Collections.singletonMap("response", userInfo.getUsername());
+                return Collections.singletonMap("response", userInfo.getEmail());
             }
         } catch (Exception e) {
             throw new ApiRequestException("error while getting user info", HttpStatus.NO_CONTENT, e);
