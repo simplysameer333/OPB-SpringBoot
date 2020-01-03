@@ -28,7 +28,7 @@ public class UserDaoImpl implements IUserDao {
 		String sqlquery = queries.getQueries().get("checkUser");
 		SqlParameterSource namedParameters = new MapSqlParameterSource()
 				.addValue("username", userInfo.getUsername())
-				.addValue("email", userInfo.getEmail())
+				.addValue("email", userInfo.getEmail().toLowerCase())
 				.addValue("phone", userInfo.getPhone());
 		
 		
@@ -40,7 +40,7 @@ public class UserDaoImpl implements IUserDao {
 		namedParameters = new MapSqlParameterSource()
 				.addValue("username", userInfo.getUsername())
 				.addValue("password", String.copyValueOf(userInfo.getPassword()))
-				.addValue("email", userInfo.getEmail())
+				.addValue("email", userInfo.getEmail().toLowerCase())
 				.addValue("phone", userInfo.getPhone());
 		
 		count = namedParameterJdbcTemplate.update(sqlquery, namedParameters);
@@ -55,7 +55,7 @@ public class UserDaoImpl implements IUserDao {
 		
 		String sqlquery = queries.getQueries().get("loginVerify");
 		SqlParameterSource namedParameters = new MapSqlParameterSource()
-				.addValue("email", userInfo.getEmail())
+				.addValue("email", userInfo.getEmail().toLowerCase())
 				.addValue("password", String.valueOf(userInfo.getPassword()));
 		
 		
@@ -70,7 +70,7 @@ public class UserDaoImpl implements IUserDao {
 	public String activateUser(UserLoginInformation userInfo) {
 		String sqlquery = queries.getQueries().get("activateUser");
 		SqlParameterSource namedParameters = new MapSqlParameterSource()
-				.addValue("email", userInfo.getEmail());
+				.addValue("email", userInfo.getEmail().toLowerCase());
 		int count = namedParameterJdbcTemplate.update(sqlquery, namedParameters);
 		if (count > 0)
 			return userInfo.getEmail();

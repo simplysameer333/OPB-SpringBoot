@@ -31,7 +31,7 @@ public class OTPServiceImpl implements IOTPService {
 	public int generateOTP(String key) {
 		Random random = new Random();
 		int otp = 100000 + random.nextInt(900000);
-		otpCache.put(key, otp);
+		otpCache.put(key.toLowerCase(), otp);
 		return otp;
 	}
 
@@ -49,9 +49,9 @@ public class OTPServiceImpl implements IOTPService {
 	@Override
 	public String verifyOTP(UserLoginInformation userinfo) {
 		String response = "Invalid OTP";
-		if(getOtp(userinfo.getEmail()) == Integer.valueOf(userinfo.getOtp())) {
+		if(getOtp(userinfo.getEmail().toLowerCase()) == Integer.valueOf(userinfo.getOtp())) {
 			response = "Success";
-			clearOTP(userinfo.getEmail());
+			clearOTP(userinfo.getEmail().toLowerCase());
 		}
 		return response;
 	}

@@ -35,10 +35,10 @@ public class Card
 	/*@JsonProperty("networks")
     private List<String> networks;
 	@JsonProperty("allows")
-    private List<String> allows;
+    private List<String> allows;*/
 	@JsonProperty("account")
     private Account account;
-	@JsonProperty("replacement")
+	/*@JsonProperty("replacement")
     private Replacement replacement;
 	@JsonProperty("pin_reset")
     private List<Pin_reset> pin_reset;
