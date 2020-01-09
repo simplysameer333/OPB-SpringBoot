@@ -53,5 +53,6 @@ public class Card
 	private String phone;
 	private boolean isDefault;
 	private int lastCode;
+	private String sessionEmail;
 	
 }

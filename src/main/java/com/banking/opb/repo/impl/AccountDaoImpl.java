@@ -31,7 +31,8 @@ public class AccountDaoImpl implements IAccountDao {
 
 		String sqlquery = queries.getQueries().get("checkCard");
 		SqlParameterSource namedParameters = new MapSqlParameterSource()
-				.addValue("cardnumber", cardInfo.getCardnumber());
+				.addValue("cardnumber", cardInfo.getCardnumber())
+				.addValue("email", cardInfo.getSessionEmail().toLowerCase());
 		
 		
 		int count  = namedParameterJdbcTemplate.queryForObject(sqlquery, namedParameters, Integer.class);
@@ -44,7 +45,7 @@ public class AccountDaoImpl implements IAccountDao {
 				.addValue("expirydate", cardInfo.getExpirydate())
 				.addValue("cvv", cardInfo.getCvv())
 				.addValue("nameoncard", String.valueOf(cardInfo.getNameoncard()))
-				.addValue("userId", 131);
+				.addValue("email", cardInfo.getSessionEmail().toLowerCase());
 		
 		
 		count  = namedParameterJdbcTemplate.update(sqlquery, namedParameters);
@@ -54,11 +55,13 @@ public class AccountDaoImpl implements IAccountDao {
 	}
 
 	@Override
-	public List<String> getCardsList() {
+	public List<String> getCardsList(String sessionemail) {
 		String sqlquery = queries.getQueries().get("cardList");
 		List<String> cards = new ArrayList<String>();
 		List<Map<String,Object>> cardList;
-		cardList  = namedParameterJdbcTemplate.queryForList(sqlquery, new MapSqlParameterSource());
+		SqlParameterSource namedParameters = new MapSqlParameterSource()
+				.addValue("email", sessionemail.toLowerCase());
+		cardList  = namedParameterJdbcTemplate.queryForList(sqlquery, namedParameters);
 		/*JSONArray json_arr=new JSONArray();
 	    for (Map<String, Object> map : cardList) {
 	        JSONObject json_obj=new JSONObject();

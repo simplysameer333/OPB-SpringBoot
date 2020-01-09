@@ -21,7 +21,7 @@ public class LoginTest {
 
     @Before
     public void init() { 
-        testUser = new UserLoginInformation ("testUsername", "test@123", "test@test.com","123456789","N");
+        testUser = new UserLoginInformation ("testUsername", "test@123", "test@test.com","123456789","N","P564LJKSD","SLKDJF64");
     }
 
     @Test

@@ -90,4 +90,16 @@ public class LoginServiceImpl implements ILoginService {
         	return username;
        return  userDao.activateUser(userInfo);
 	}
+	
+	@Override
+    public String kycUpdate(UserLoginInformation userInfo) {
+    	
+		return userDao.kycUpdateUser(userInfo);
+    }
+	
+	@Override
+    public UserLoginInformation kycDetails(String email) {
+		
+		return userDao.kycUserDetails(email);
+	}
 }

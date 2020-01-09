@@ -8,4 +8,7 @@ public interface ILoginService {
     String singedUpUser(UserLoginInformation userInfo);
     String userOTPAuth(UserLoginInformation userInfo);
     UserLoginInformation login(UserLoginInformation userInfo);
+    String kycUpdate(UserLoginInformation userInfo);
+    UserLoginInformation kycDetails(String email);
+
 }

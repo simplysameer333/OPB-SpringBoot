@@ -59,8 +59,8 @@ public class CardServiceImpl implements ICardService {
     }
 
     @Override
-    public List<Card> getCardList() {
-    	List<String> cards = accountDao.getCardsList();
+    public List<Card> getCardList(String sessionemail) {
+    	List<String> cards = accountDao.getCardsList(sessionemail);
     	List<Card> cardList = new ArrayList<Card>();
     	for(Card card : obpCardApiClient.getCards().getCards()) {
     		if(cards.contains(card.getCardnumber()))

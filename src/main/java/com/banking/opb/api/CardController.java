@@ -1,5 +1,6 @@
 package com.banking.opb.api;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -50,14 +51,25 @@ public class CardController {
         return Collections.singletonMap("response", response);
     }
 
-    @GetMapping(value = "/api/card/cardList")
-    public List<Card> getCardsList() {
-        return ICardServiceImpl.getCardList();
+    @GetMapping(value = "/api/card/cardList/{sessionemail}")
+    public List<Card> getCardsList(@PathVariable("sessionemail") String sessionemail) {
+        return ICardServiceImpl.getCardList(sessionemail);
     }
     
     @GetMapping(value = "/api/transaction/transactionList/{bank_id}/{account_id}")
     public List<Transaction> getTransactions(@PathVariable("bank_id") String bank_id, @PathVariable("account_id") String account_id) {
         return transactionServiceImpl.getTransactions(bank_id, account_id);
+    }
+    
+    @GetMapping(value = "/api/dashBoardTransactions/{sessionemail}")
+    public List<Transaction> getDashboardTransactions(@PathVariable("sessionemail") String sessionemail) {
+    	List<Card> cardList = getCardsList(sessionemail);
+    	List<Transaction> transactionList = new ArrayList<Transaction>();
+    	for(Card card: cardList) {
+    		transactionList.addAll(transactionServiceImpl.getTransactions(card.getBank_id(), card.getAccount().getId()));
+    		
+    	}
+        return transactionList;
     }
     
     @GetMapping(value = "/api/card/{cardId}")

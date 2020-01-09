@@ -1,11 +1,14 @@
 package com.banking.opb.api;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -54,11 +57,38 @@ public class LoginController {
             if (userInfo != null) {
                 //log.info(userInfo.getUserId());
                 BasicUtilities.session().setAttribute("activeuser", userInfo);
-                return Collections.singletonMap("response", userInfo.getEmail());
+                Map<String, String> userInfoMap = new HashMap<String, String>();
+                userInfoMap.put("email",userInfo.getEmail());
+                userInfoMap.put("name",userInfo.getUsername());
+                if(userInfo.getDrivingLicense()!=null && userInfo.getPassport()!=null)
+                	userInfoMap.put("kyc","done");
+                else
+                	userInfoMap.put("kyc","pending");
+                return userInfoMap;
             }
         } catch (Exception e) {
             throw new ApiRequestException("error while getting user info", HttpStatus.NO_CONTENT, e);
         }
         return Collections.singletonMap("response", "Invalid credentials");
+    }
+    
+    @PostMapping(value = "/api/kycUpdate", consumes = "application/json", produces = "application/json")    
+    public Map<String, String> kycUser(@RequestBody UserLoginInformation userInfo) {
+        try {
+            String kycUpdate = loginService.kycUpdate(userInfo);
+            if (kycUpdate != null) {
+                //log.info(userInfo.getUserId());
+                return Collections.singletonMap("response", kycUpdate);
+            }
+        } catch (Exception e) {
+            throw new ApiRequestException("error while getting user info", HttpStatus.NO_CONTENT, e);
+        }
+        return Collections.singletonMap("response", "Unable to update profile");
+    }
+    
+    @GetMapping(value = "/api/kycDetails/{email}", consumes = "application/json", produces = "application/json")    
+    public UserLoginInformation kycDetails(@PathVariable("email") String email) {
+    	
+        return loginService.kycDetails(email);
     }
 }

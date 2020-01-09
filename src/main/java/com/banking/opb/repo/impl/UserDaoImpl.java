@@ -76,5 +76,30 @@ public class UserDaoImpl implements IUserDao {
 			return userInfo.getEmail();
 		return null;
 	}
+	
+	@Override
+	public String kycUpdateUser(UserLoginInformation userInfo) {
+		String sqlquery = queries.getQueries().get("kycUpdateUser");
+		SqlParameterSource namedParameters = new MapSqlParameterSource()
+				.addValue("passport", userInfo.getPassport())
+				.addValue("drivinglicense", userInfo.getDrivingLicense())
+				.addValue("email", userInfo.getEmail().toLowerCase());
+		int count = namedParameterJdbcTemplate.update(sqlquery, namedParameters);
+		if (count > 0)
+			return userInfo.getEmail();
+		return null;
+	}
+	
+	@Override
+	public UserLoginInformation kycUserDetails(String email) {
+		String sqlquery = queries.getQueries().get("kycUser");
+		SqlParameterSource namedParameters = new MapSqlParameterSource()
+				.addValue("email", email.toLowerCase());
+		
+		List<UserLoginInformation> userList  = namedParameterJdbcTemplate.query(sqlquery, namedParameters,new UserInfoRowMapper());
+		if (userList != null && userList.size()==1)
+			return userList.get(0);
+		return null;
+	}
 
 }
