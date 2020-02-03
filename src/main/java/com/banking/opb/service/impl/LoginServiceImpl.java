@@ -58,28 +58,23 @@ public class LoginServiceImpl implements ILoginService {
     public UserLoginInformation login(UserLoginInformation userInfo) {  
     	  
         UserLoginInformation currentUser = userCache.get(userInfo.getEmail());
-        /*if (currentUser != null
-                && String.copyValueOf(currentUser.getPassword()).equals(String.copyValueOf(userInfo.getPassword()))) {*/
-            /*String authToken = directAuthenticationClient.login(properties.getConfigValue("obp.username"),
-                    properties.getConfigValue("obp.password"),
-                    properties.getConfigValue("obp.consumerKey"));*/
-        	/*String authToken = directAuthenticationClient.login("simply_sameer","Justme@123","alp1mr1btifdpwv32qekdm1mkjwqvjom45gyi4in");
-            currentUser.setAuthToken(authToken);
-            SecurityContextHolder.setContext(new SecurityContextImpl(
-                    new UsernamePasswordAuthenticationToken(userInfo.getUsername(), authToken)));*/
-           /* return currentUser;
-        }*/
     	if (BasicUtilities.isEmptyOrNullString(userInfo.getEmail())
                 || BasicUtilities.isEmptyOrNullCharaterArray(userInfo.getPassword()))
             return null;
 
     	UserLoginInformation username = userDao.login(userInfo);
-        
+        /*SecurityContextHolder.setContext(new SecurityContextImpl(
+                new UsernamePasswordAuthenticationToken(userInfo.getUsername(), authToken)));*/
         if (username != null && username.getActive().equals("N")) {
         	username.setUsername("Account not active");
             return username;
-        } else if(username != null)
+        } else if(username != null) {
+        	/*String authToken = directAuthenticationClient.login(properties.getConfigValue("obp.username"),
+                    properties.getConfigValue("obp.password"),
+                    properties.getConfigValue("obp.consumerKey"));
+        	username.setAuthToken(authToken);*/
         	return username;
+        }
         return null;
     }
 

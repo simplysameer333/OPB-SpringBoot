@@ -60,6 +60,7 @@ public class LoginController {
                 Map<String, String> userInfoMap = new HashMap<String, String>();
                 userInfoMap.put("email",userInfo.getEmail());
                 userInfoMap.put("name",userInfo.getUsername());
+                //userInfoMap.put("authtoken",userInfo.getAuthToken());
                 if(userInfo.getDrivingLicense()!=null && userInfo.getPassport()!=null)
                 	userInfoMap.put("kyc","done");
                 else
