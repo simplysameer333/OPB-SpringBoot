@@ -1,4 +1,4 @@
-## THIS IS NOT COORECT, PLEASE DNT FOLLOW README
+## AWS Migration IS IN PROGRESS
 
 ## Open Bank API client implemented with Spring Boot 
 This is a technology demonstration of the OBP API `v3.1.0` capabilities.
